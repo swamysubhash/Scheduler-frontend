@@ -1,0 +1,37 @@
+<mat-card class="form-card">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <h2 class="form-title">Schedule Details</h2>
+
+    <!-- Title Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter title">
+      <mat-error *ngIf="form.get('title')?.hasError('required')">
+        Title is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Description Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="4" placeholder="Enter description"></textarea>
+    </mat-form-field>
+
+    <!-- Date Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Select date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('date')?.hasError('required')">
+        Date is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</mat-card>

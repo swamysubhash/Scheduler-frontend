@@ -1,0 +1,22 @@
+.form-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.form-title {
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
