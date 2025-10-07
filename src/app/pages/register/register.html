@@ -1,0 +1,48 @@
+<mat-card class="form-card">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <h2 class="form-title">Create Account</h2>
+
+    <!-- Name -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter your name" type="text">
+      <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter email" type="email">
+      <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+        Email is required.
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+        Enter a valid email.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Enter password" type="password">
+      <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+        Password is required.
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+        Password must be at least 6 characters long.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+        Register
+      </button>
+      <button mat-raised-button color="accent" type="button" (click)="goToLogin()">
+        Back to Login
+      </button>
+    </div>
+  </form>
+</mat-card>

@@ -7,7 +7,7 @@ import { App } from './app';
 import { ScheduleListComponent } from './features/components/schedule-list/schedule-list';
 import { ScheduleFormComponent } from './features/components/schedule-form/schedule-form';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,12 +23,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ScheduleEffects } from './features/store/effects';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
+import { AuthInterceptor } from './features/services/auth.intercepter';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     App,
     ScheduleListComponent,
-    ScheduleFormComponent
+    ScheduleFormComponent,
+    Login,
+    Register
   ],
   imports: [
     BrowserModule,
@@ -49,12 +55,18 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatPaginatorModule,
     MatIconModule,
     MatToolbarModule,
+    MatMenuModule,
     StoreModule.forRoot({ schedules: scheduleRecucer }),
     EffectsModule.forRoot([ScheduleEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })
